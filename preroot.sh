@@ -34,8 +34,6 @@ PCONFIG=$LBPCONFIG/$PDIR
 PSBIN=$LBPSBIN/$PDIR
 PBIN=$LBPBIN/$PDIR
 
-pillow tk matplotlib requests numpy waveshare-epaper
-
 echo "<INFO> Installing Pillow via pip..."
 yes | python3 -m pip pillow
 
