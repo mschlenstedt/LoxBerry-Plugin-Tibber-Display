@@ -35,7 +35,7 @@ PSBIN=$LBPSBIN/$PDIR
 PBIN=$LBPBIN/$PDIR
 
 echo "<INFO> Installing Pillow via pip..."
-yes | python3 -m pip pillow
+yes | python3 -m pip install pillow
 
 INSTALLED_ST=$(python3 -m pip list --format=columns | grep "pillow" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
@@ -47,7 +47,7 @@ fi
 
 
 echo "<INFO> Installing Matplotlib via pip..."
-yes | python3 -m pip matplotlib
+yes | python3 -m pip install matplotlib
 
 INSTALLED_ST=$(python3 -m pip list --format=columns | grep "matplotlib" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
@@ -58,7 +58,7 @@ else
 fi 
 
 echo "<INFO> Installing Requests via pip..."
-yes | python3 -m pip requests
+yes | python3 -m pip install requests
 
 INSTALLED_ST=$(python3 -m pip list --format=columns | grep "requests" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
@@ -69,7 +69,7 @@ else
 fi 
 
 echo "<INFO> Installing Numpy via pip..."
-yes | python3 -m pip numpy
+yes | python3 -m pip install numpy
 
 INSTALLED_ST=$(python3 -m pip list --format=columns | grep "numpy" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
