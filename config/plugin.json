@@ -1,0 +1,10 @@
+{
+   "api_key" : "5K4MVS-OjfWhK_4yrjOlFe1F6kJXPVf7eQYggo8ebAE",
+   "width" : "1100",
+   "height" : "600",
+   "text_color" : "#EEEEEE",
+   "bar_color" : "#6DAC20",
+   "bar_active_color" : "#36550F",
+   "topic" : "tibber_display",
+   "path" : "/dev/shm/tibber_display"
+}

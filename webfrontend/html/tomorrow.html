@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<title>Tibber</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.8, minimum-scale=0.3, maximum-scale=1, user-scalable=yes">
+	<link rel="stylesheet" href="/system/scripts/jquery/themes/main/loxberry.css" />
+	<link rel="stylesheet" href="/system/scripts/jquery/themes/main/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="/system/scripts/jquery/jquery.mobile.structure-1.4.5.min.css" />
+	<link rel="stylesheet" href="/system/css/main.css" />
+	<link rel="shortcut icon" href="/system/images/favicon.ico" />
+	<link rel="icon" type="image/png" href="/system/images/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/png" href="/system/images/favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="/system/images/favicon-16x16.png" sizes="16x16" />
+	<script src="/system/scripts/jquery/jquery-1.12.4.min.js"></script>
+	<script src="/system/scripts/jquery/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<style>
+.ui-page {
+    background:#000000;
+}
+</style>
+
+<script>
+	setInterval(function() {
+		var myImageElement = document.getElementById('image');
+		myImageElement.src = 'tibber_graph_tomorrow.png?rand=' + Math.random();
+	}, 60000);
+</script>
+
+<div data-role="navbar">
+	<ul>
+	<li><a href="today.html" data-transition="fade" style="font-size: 1em; line-height: 1.5em">Heute</a></li>
+	<li><a href="tomorrow.html" class="ui-btn-active ui-state-persist" style="font-size: 1em; line-height: 1.5em">Morgen</a></li>
+	</ul>
+</div><!-- /navbar -->
+
+<br>
+<center><img src="tibber_graph_tomorrow.png" id="image"></center>
+
+</body>
+</html>
