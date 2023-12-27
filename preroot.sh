@@ -90,5 +90,9 @@ else
 	exit 2;
 fi 
 
+echo "<INFO> Creating needed German locale..."
+localedef -i de_DE -f UTF-8 de_DE.UTF-8
+locale -a
+
 # Exit with Status 0
 exit 0
