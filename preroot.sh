@@ -37,7 +37,7 @@ PBIN=$LBPBIN/$PDIR
 echo "<INFO> Installing Pillow via pip..."
 yes | python3 -m pip install pillow
 
-INSTALLED_ST=$(python3 -m pip list --format=columns | grep "pillow" | grep -v grep | wc -l)
+INSTALLED_ST=$(python3 -m pip list --format=columns | grep "Pillow" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
 	echo "<OK> Pillow installed successfully."
 else
@@ -76,6 +76,17 @@ if [ ${INSTALLED_ST} -ne "0" ]; then
 	echo "<OK> Numpy installed successfully."
 else
 	echo "<FAIL> Numpy could not be installed."
+	exit 2;
+fi 
+
+echo "<INFO> Installing Paho-mqtt via pip..."
+yes | python3 -m pip install paho-mqtt
+
+INSTALLED_ST=$(python3 -m pip list --format=columns | grep "paho-mqtt" | grep -v grep | wc -l)
+if [ ${INSTALLED_ST} -ne "0" ]; then
+	echo "<OK> Paho-mqtt installed successfully."
+else
+	echo "<FAIL> Paho-mqtt could not be installed."
 	exit 2;
 fi 
 
