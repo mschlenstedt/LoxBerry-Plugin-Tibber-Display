@@ -167,6 +167,9 @@ sub form_settings
 sub form_loxconfig
 {
 	$template->param("FORM_LOXCONFIG", 1);
+	$template->param("URL_WEBPAGE", "http://". $ENV{HTTP_HOST} . "/plugins/" . $lbpplugindir . "/today.html");
+	$template->param("URL_HTTPVI", "http://". $ENV{HTTP_HOST} . "/plugins/" . $lbpplugindir . "/data/tibber_data.json");
+	$template->param("URL_MQTTVI", "http://". $ENV{HTTP_HOST} . "/admin/system/mqtt-gateway.cgi?form=incoming");
 	return();
 }
 
@@ -239,6 +242,8 @@ sub savesettings
 	$cfg->{'bar_active_color'} = $q->{'activebarcolor'};
 	$cfg->{'topic'} = $q->{'topic'};
 	$jsonobj->write();
+	system("$lbpbindir/tibber.sh --do today > /dev/null 2>&1");
+	system("$lbpbindir/tibber.sh --do tomorrow > /dev/null 2>&1");
 	return ($errors);
 }
 

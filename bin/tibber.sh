@@ -23,6 +23,7 @@ LOGINF "Commandline options: $@"
 LOGOK "Starting Tibber Grabber Script..."
 
 # Start Tibber script
-python3 tibber.py $@ >> ${FILENAME} 2>&1
+LBPBINDIR=$(perl -e 'use LoxBerry::System; print $lbpbindir; exit;')
+python3 $LBPBINDIR/tibber.py $@ >> ${FILENAME} 2>&1
 
 LOGEND "Processing successfully finished"

@@ -43,254 +43,194 @@
 
 </style>
 
+<!-- ****************************************************************************************** -->
+
 <TMPL_IF FORM_SETTINGS>
-		<form>
-		
-		<div class="lb_flex-container SETTINGS ui-state-disabled">
-			<div	class="lb_flex-item-label">
-				<label	class=	"control-label"
-					for="apikey"><TMPL_VAR COMMON.LABEL_API-KEY></label>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-				<input width="100%" value="" id="apikey" name="apikey" type="text" class="textfield">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-				<TMPL_VAR COMMON.HINT_API-KEY>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-		</div>
-
-		<div class="lb_flex-container SETTINGS ui-state-disabled">
-			<div	class="lb_flex-item-label">
-				<label	class=	"control-label"
-					for="topic"><TMPL_VAR COMMON.LABEL_TOPIC></label>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-				<input width="100%" value="" id="topic" name="topic" type="text" class="textfield">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-				<TMPL_VAR COMMON.HINT_TOPIC>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-		</div>
-
-		<div class="lb_flex-container SETTINGS ui-state-disabled">
-			<div	class="lb_flex-item-label">
-				<label	class=	"control-label"
-					for="width"><TMPL_VAR COMMON.LABEL_WIDTH></label>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-				<input type="range" name="width" id="width" min="300" max="1500" value="" data-highlight="true" step="50">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-				<TMPL_VAR COMMON.HINT_WIDTH>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-		</div>
-
-		<div class="lb_flex-container SETTINGS ui-state-disabled">
-			<div	class="lb_flex-item-label">
-				<label	class=	"control-label"
-					for="height"><TMPL_VAR COMMON.LABEL_HEIGHT></label>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-				<input type="range" name="height" id="height" min="300" max="1500" value="" data-highlight="true" step="50">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-				<TMPL_VAR COMMON.HINT_HEIGHT>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-		</div>
-
-		<div class="lb_flex-container SETTINGS ui-state-disabled">
-			<div	class="lb_flex-item-label">
-				<label	class=	"control-label"
-					for="textcolor"><TMPL_VAR COMMON.LABEL_TEXTCOLOR></label>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-				<input type="color" data-clear-btn="false" name="textcolor" id="textcolor" value="">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-				<TMPL_VAR COMMON.HINT_TEXTCOLOR>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-		</div>
-
-		<div class="lb_flex-container SETTINGS ui-state-disabled">
-			<div	class="lb_flex-item-label">
-				<label	class=	"control-label"
-					for="barcolor"><TMPL_VAR COMMON.LABEL_BARCOLOR></label>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-				<input type="color" data-clear-btn="false" name="barcolor" id="barcolor" value="">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-				<TMPL_VAR COMMON.HINT_BARCOLOR>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-		</div>
-
-		<div class="lb_flex-container SETTINGS ui-state-disabled">
-			<div	class="lb_flex-item-label">
-				<label	class=	"control-label"
-					for="activebarcolor"><TMPL_VAR COMMON.LABEL_ACTIVEBARCOLOR></label>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-				<input type="color" data-clear-btn="false" name="activebarcolor" id="activebarcolor" value="">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-				<TMPL_VAR COMMON.HINT_ACTIVEBARCOLOR>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-		</div>
-
-		<div style="padding: 0px 0px 20px 0px;"></div>
+	<form>
 	
-		<div class="lb_flex-container SETTINGS ui-state-disabled">
-			<div	class="lb_flex-item-label">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-			<a href="javascript:saveSETTINGS();" id="btnsavesettings" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check ui-btn-inline" 
-					data-transition="flow" data-inline="true"><TMPL_VAR COMMON.BUTTON_SAVE></a>
-			<div class="hint" id="settings_hint">&nbsp;</div>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
+	<div class="lb_flex-container SETTINGS ui-state-disabled">
+		<div	class="lb_flex-item-label">
+			<label	class=	"control-label"
+				for="apikey"><TMPL_VAR COMMON.LABEL_API-KEY></label>
 		</div>
-		
-		</form>
-	
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item">
+			<input width="100%" value="" id="apikey" name="apikey" type="text" class="textfield">
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-help hint">
+			<TMPL_VAR COMMON.HINT_API-KEY>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
 	</div>
+
+	<div class="lb_flex-container SETTINGS ui-state-disabled">
+		<div	class="lb_flex-item-label">
+			<label	class=	"control-label"
+				for="topic"><TMPL_VAR COMMON.LABEL_TOPIC></label>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item">
+			<input width="100%" value="" id="topic" name="topic" type="text" class="textfield">
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-help hint">
+			<TMPL_VAR COMMON.HINT_TOPIC>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+	</div>
+
+	<div class="lb_flex-container SETTINGS ui-state-disabled">
+		<div	class="lb_flex-item-label">
+			<label	class=	"control-label"
+				for="width"><TMPL_VAR COMMON.LABEL_WIDTH></label>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item">
+			<input type="range" name="width" id="width" min="300" max="1500" value="" data-highlight="true" step="50">
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-help hint">
+			<TMPL_VAR COMMON.HINT_WIDTH>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+	</div>
+
+	<div class="lb_flex-container SETTINGS ui-state-disabled">
+		<div	class="lb_flex-item-label">
+			<label	class=	"control-label"
+				for="height"><TMPL_VAR COMMON.LABEL_HEIGHT></label>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item">
+			<input type="range" name="height" id="height" min="300" max="1500" value="" data-highlight="true" step="50">
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-help hint">
+			<TMPL_VAR COMMON.HINT_HEIGHT>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+	</div>
+
+	<div class="lb_flex-container SETTINGS ui-state-disabled">
+		<div	class="lb_flex-item-label">
+			<label	class=	"control-label"
+				for="textcolor"><TMPL_VAR COMMON.LABEL_TEXTCOLOR></label>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item">
+			<input type="color" data-clear-btn="false" name="textcolor" id="textcolor" value="">
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-help hint">
+			<TMPL_VAR COMMON.HINT_TEXTCOLOR>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+	</div>
+
+	<div class="lb_flex-container SETTINGS ui-state-disabled">
+		<div	class="lb_flex-item-label">
+			<label	class=	"control-label"
+				for="barcolor"><TMPL_VAR COMMON.LABEL_BARCOLOR></label>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item">
+			<input type="color" data-clear-btn="false" name="barcolor" id="barcolor" value="">
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-help hint">
+			<TMPL_VAR COMMON.HINT_BARCOLOR>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+	</div>
+
+	<div class="lb_flex-container SETTINGS ui-state-disabled">
+		<div	class="lb_flex-item-label">
+			<label	class=	"control-label"
+				for="activebarcolor"><TMPL_VAR COMMON.LABEL_ACTIVEBARCOLOR></label>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item">
+			<input type="color" data-clear-btn="false" name="activebarcolor" id="activebarcolor" value="">
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-help hint">
+			<TMPL_VAR COMMON.HINT_ACTIVEBARCOLOR>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+	</div>
+
+	<div style="padding: 0px 0px 20px 0px;"></div>
+
+	<div class="lb_flex-container SETTINGS ui-state-disabled">
+		<div	class="lb_flex-item-label">
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item">
+		<a href="javascript:saveSETTINGS();" id="btnsavesettings" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check ui-btn-inline" 
+				data-transition="flow" data-inline="true"><TMPL_VAR COMMON.BUTTON_SAVE></a>
+		<div class="hint" id="settings_hint">&nbsp;</div>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-help hint">
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+	</div>
+	
+	</form>
 
 </TMPL_IF>
 
 <!-- ****************************************************************************************** -->
 
-<TMPL_IF FORM_MQTT>
-		<form>
-		
-		<div class="lb_flex-container MQTT">
-			<div	class="lb_flex-item-label">
-				<label	class=	"control-label"
-					for="topic"><TMPL_VAR MQTT.LABEL_MQTTTopic></label>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-				<input width="100%" value="" id="topic" name="topic" type="text" class="textfield" 
-				data-validation-rule="^(?!.*//.*)[^\+#]+$" data-validation-error-msg="<TMPL_VAR MQTT.MSG_VALINVALID_MQTTTOPIC>">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-				<TMPL_VAR MQTT.HINT_MQTTTOPIC>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
+<TMPL_IF FORM_LOXCONFIG>
+	<div class="lb_flex-container LOXCONFIG">
+		<div	class="lb_flex-item-label">
+			<label	class=	"control-label"
+				for="apikey"><TMPL_VAR COMMON.LABEL_WEBPAGE></label>
 		</div>
-	
-	
-		<div style="padding: 0px 0px 20px 0px;"></div>
-	
-		<div class="lb_flex-container MQTT">
-			<div	class="lb_flex-item-label">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-			<a href="javascript:saveMQTT();" id="btnsavemqtt" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" 
-						data-transition="flow"><TMPL_VAR MQTT.BUTTON_SAVE></a>
-			<div class="hint" id="mqtt_hint">&nbsp;</div>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item">
+			<pre><a href='<TMPL_VAR URL_WEBPAGE>' target='blank'><TMPL_VAR URL_WEBPAGE></a></pre>
 		</div>
-		
-		</form>
-	
-		<script>
-			// Validation
-			validate_enable('#topic');
-		</script>
-	
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-help hint">
+			<TMPL_VAR COMMON.HINT_WEBPAGE>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
 	</div>
 
-</TMPL_IF>
-
-<!-- ****************************************************************************************** -->
-
-<TMPL_IF FORM_UPGRADE>
-
-		<center>
-		<p><TMPL_VAR UPGRADE.HINT_LIB></p>
-		</center>
-		<br><br>
-		<form>
-		
-		<div class="lb_flex-container UPGRADE ui-state-disabled">
-			<div	class="lb_flex-item-label">
-				<TMPL_VAR UPGRADE.LABEL_CURRENT>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-				<span id="currentversion"></span>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
+	<div class="lb_flex-container LOXCONFIG">
+		<div	class="lb_flex-item-label">
+			<label	class=	"control-label"
+				for="apikey"><TMPL_VAR COMMON.LABEL_HTTPVI></label>
 		</div>
-
-		<div class="lb_flex-container UPGRADE ui-state-disabled">
-			<div	class="lb_flex-item-label">
-				<TMPL_VAR UPGRADE.LABEL_ONLINE>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-				<span id="availableversion"></span>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item">
+			<pre><a href='<TMPL_VAR URL_HTTPVI>' target='blank'><TMPL_VAR URL_HTTPVI></a></pre>
 		</div>
-
-		<div style="padding: 0px 0px 20px 0px;"></div>
-	
-		<div class="lb_flex-container UPGRADE">
-			<div	class="lb_flex-item-label">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item">
-			<a href="javascript:upgradeLib();" id="btnupgradelib" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check ui-btn-inline" 
-					data-transition="flow" data-inline="true"><TMPL_VAR UPGRADE.BUTTON_SAVE></a>
-			<div class="hint" id="upgrade_hint">&nbsp;</div>
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
-			<div	class="lb_flex-item-help hint">
-			</div>
-			<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-help hint">
+			<TMPL_VAR COMMON.HINT_HTTPVI>
 		</div>
-		
-		</form>
-	
+		<div	class="lb_flex-item-spacer"></div>
 	</div>
 
+	<div class="lb_flex-container LOXCONFIG">
+		<div	class="lb_flex-item-label">
+			<label	class=	"control-label"
+				for="apikey"><TMPL_VAR COMMON.LABEL_MQTTVI></label>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item">
+			<pre><a href='<TMPL_VAR URL_MQTTVI>' target='blank'><TMPL_VAR URL_MQTTVI></a></pre>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+		<div	class="lb_flex-item-help hint">
+			<TMPL_VAR COMMON.HINT_MQTTVI>
+		</div>
+		<div	class="lb_flex-item-spacer"></div>
+	</div>
 </TMPL_IF>
 
 <!-- ****************************************************************************************** -->
