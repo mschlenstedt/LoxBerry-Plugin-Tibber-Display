@@ -13,9 +13,5 @@ cp -p -v -r /tmp/$ARGV1\_upgrade/config/$ARGV3/* $ARGV5/config/plugins/$ARGV3/
 echo "<INFO> Remove temporary folders"
 rm -r /tmp/$ARGV1\_upgrade
 
-echo "<INFO> Creating plots..."
-$PBIN/tibber.sh --do today
-$PBIN/tibber.sh --do tomorrow
-
 # Exit with Status 0
 exit 0
