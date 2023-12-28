@@ -1,5 +1,7 @@
 
 ## LoxBerry Backup - do not change manually. You changes will be overwritten!
 MAILTO=""
-15 13 * * * loxberry REPLACELBPBINDIR/tibber.sh --do tomorrow > /dev/null 2>&1
-01  * * * * loxberry REPLACELBPBINDIR/tibber.sh --do today > /dev/null 2>&1
+15 13 * * * loxberry cd REPLACELBPBINDIR && REPLACELBPBINDIR/tibber.sh --do tomorrow > /dev/null 2>&1
+01  * * * * loxberry cd REPLACELBPBINDIR && REPLACELBPBINDIR/tibber.sh --do today > /dev/null 2>&1
+@reboot     loxberry cd REPLACELBPBINDIR && REPLACELBPBINDIR/tibber.sh --do tomorrow > /dev/null 2>&1
+@reboot     loxberry cd REPLACELBPBINDIR && REPLACELBPBINDIR/tibber.sh --do today > /dev/null 2>&1
