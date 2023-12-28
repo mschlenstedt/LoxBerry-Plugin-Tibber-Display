@@ -1,0 +1,417 @@
+<style>
+	.listtable td
+	{
+		vertical-align	:middle;
+		text-align	:center;
+	}
+	.listtable td img
+	{
+		padding		:5px;
+	}
+	.lb_flex-item 
+	{	
+		min-width	:450px;
+		width		:450px;
+		max-width	:450px;
+		flex-wrap	:nowrap;
+		margin-top	:-10px;  
+	}
+	.lb_flex-item-help 
+	{
+		min-width	:100px;
+		width		:100%;
+		position	:relative;
+		margin-left	:10px;
+	}
+	.mqtttable {
+		vertical-align: middle;
+		text-align: left;
+		/* font-size: 90%; */
+		border-collapse: collapse;
+		border: 1px solid grey;
+		padding: 10px;
+		width: 100%;
+		
+	}
+	.mqtttable_vicol, .mqtttable_desccol {
+		border: 1px solid grey;
+		padding: 10px;
+	}
+	.mqtttable_headrow {
+	
+	}
+
+</style>
+
+<TMPL_IF FORM_SETTINGS>
+		<form>
+		
+		<div class="lb_flex-container SETTINGS ui-state-disabled">
+			<div	class="lb_flex-item-label">
+				<label	class=	"control-label"
+					for="apikey"><TMPL_VAR COMMON.LABEL_API-KEY></label>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+				<input width="100%" value="" id="apikey" name="apikey" type="text" class="textfield">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+				<TMPL_VAR COMMON.HINT_API-KEY>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+
+		<div class="lb_flex-container SETTINGS ui-state-disabled">
+			<div	class="lb_flex-item-label">
+				<label	class=	"control-label"
+					for="topic"><TMPL_VAR COMMON.LABEL_TOPIC></label>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+				<input width="100%" value="" id="topic" name="topic" type="text" class="textfield">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+				<TMPL_VAR COMMON.HINT_TOPIC>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+
+		<div class="lb_flex-container SETTINGS ui-state-disabled">
+			<div	class="lb_flex-item-label">
+				<label	class=	"control-label"
+					for="width"><TMPL_VAR COMMON.LABEL_WIDTH></label>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+				<input type="range" name="width" id="width" min="300" max="1500" value="" data-highlight="true" step="50">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+				<TMPL_VAR COMMON.HINT_WIDTH>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+
+		<div class="lb_flex-container SETTINGS ui-state-disabled">
+			<div	class="lb_flex-item-label">
+				<label	class=	"control-label"
+					for="height"><TMPL_VAR COMMON.LABEL_HEIGHT></label>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+				<input type="range" name="height" id="height" min="300" max="1500" value="" data-highlight="true" step="50">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+				<TMPL_VAR COMMON.HINT_HEIGHT>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+
+		<div class="lb_flex-container SETTINGS ui-state-disabled">
+			<div	class="lb_flex-item-label">
+				<label	class=	"control-label"
+					for="textcolor"><TMPL_VAR COMMON.LABEL_TEXTCOLOR></label>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+				<input type="color" data-clear-btn="false" name="textcolor" id="textcolor" value="">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+				<TMPL_VAR COMMON.HINT_TEXTCOLOR>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+
+		<div class="lb_flex-container SETTINGS ui-state-disabled">
+			<div	class="lb_flex-item-label">
+				<label	class=	"control-label"
+					for="barcolor"><TMPL_VAR COMMON.LABEL_BARCOLOR></label>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+				<input type="color" data-clear-btn="false" name="barcolor" id="barcolor" value="">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+				<TMPL_VAR COMMON.HINT_BARCOLOR>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+
+		<div class="lb_flex-container SETTINGS ui-state-disabled">
+			<div	class="lb_flex-item-label">
+				<label	class=	"control-label"
+					for="activebarcolor"><TMPL_VAR COMMON.LABEL_ACTIVEBARCOLOR></label>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+				<input type="color" data-clear-btn="false" name="activebarcolor" id="activebarcolor" value="">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+				<TMPL_VAR COMMON.HINT_ACTIVEBARCOLOR>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+
+		<div style="padding: 0px 0px 20px 0px;"></div>
+	
+		<div class="lb_flex-container SETTINGS ui-state-disabled">
+			<div	class="lb_flex-item-label">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+			<a href="javascript:saveSETTINGS();" id="btnsavesettings" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check ui-btn-inline" 
+					data-transition="flow" data-inline="true"><TMPL_VAR COMMON.BUTTON_SAVE></a>
+			<div class="hint" id="settings_hint">&nbsp;</div>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+		
+		</form>
+	
+	</div>
+
+</TMPL_IF>
+
+<!-- ****************************************************************************************** -->
+
+<TMPL_IF FORM_MQTT>
+		<form>
+		
+		<div class="lb_flex-container MQTT">
+			<div	class="lb_flex-item-label">
+				<label	class=	"control-label"
+					for="topic"><TMPL_VAR MQTT.LABEL_MQTTTopic></label>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+				<input width="100%" value="" id="topic" name="topic" type="text" class="textfield" 
+				data-validation-rule="^(?!.*//.*)[^\+#]+$" data-validation-error-msg="<TMPL_VAR MQTT.MSG_VALINVALID_MQTTTOPIC>">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+				<TMPL_VAR MQTT.HINT_MQTTTOPIC>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+	
+	
+		<div style="padding: 0px 0px 20px 0px;"></div>
+	
+		<div class="lb_flex-container MQTT">
+			<div	class="lb_flex-item-label">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+			<a href="javascript:saveMQTT();" id="btnsavemqtt" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" 
+						data-transition="flow"><TMPL_VAR MQTT.BUTTON_SAVE></a>
+			<div class="hint" id="mqtt_hint">&nbsp;</div>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+		
+		</form>
+	
+		<script>
+			// Validation
+			validate_enable('#topic');
+		</script>
+	
+	</div>
+
+</TMPL_IF>
+
+<!-- ****************************************************************************************** -->
+
+<TMPL_IF FORM_UPGRADE>
+
+		<center>
+		<p><TMPL_VAR UPGRADE.HINT_LIB></p>
+		</center>
+		<br><br>
+		<form>
+		
+		<div class="lb_flex-container UPGRADE ui-state-disabled">
+			<div	class="lb_flex-item-label">
+				<TMPL_VAR UPGRADE.LABEL_CURRENT>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+				<span id="currentversion"></span>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+
+		<div class="lb_flex-container UPGRADE ui-state-disabled">
+			<div	class="lb_flex-item-label">
+				<TMPL_VAR UPGRADE.LABEL_ONLINE>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+				<span id="availableversion"></span>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+
+		<div style="padding: 0px 0px 20px 0px;"></div>
+	
+		<div class="lb_flex-container UPGRADE">
+			<div	class="lb_flex-item-label">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item">
+			<a href="javascript:upgradeLib();" id="btnupgradelib" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check ui-btn-inline" 
+					data-transition="flow" data-inline="true"><TMPL_VAR UPGRADE.BUTTON_SAVE></a>
+			<div class="hint" id="upgrade_hint">&nbsp;</div>
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+			<div	class="lb_flex-item-help hint">
+			</div>
+			<div	class="lb_flex-item-spacer"></div>
+		</div>
+		
+		</form>
+	
+	</div>
+
+</TMPL_IF>
+
+<!-- ****************************************************************************************** -->
+
+<TMPL_IF FORM_LOG>
+	<TMPL_VAR LOGLIST>
+</TMPL_IF>
+
+<!-- ****************************************************************************************** -->
+
+<script>
+// Main form
+var formsettings = '<TMPL_VAR FORM_SETTINGS>';
+var formlog = '<TMPL_VAR FORM_LOG>';
+
+$(function() {
+
+	getconfig();
+
+});
+
+// Save Settings
+function saveSETTINGS() {
+	$("#settings_hint").attr("style", "color:blue").html("<TMPL_VAR COMMON.HINT_SAVE_SAVING>");
+	$.ajax( { 
+			type: 'POST',
+			data: { 
+				ajax: 'savesettings', 
+				apikey: $('#apikey').val(),
+				topic: $('#topic').val(),
+				width: $('#width').val(),
+				height: $('#height').val(),
+				textcolor: $('#textcolor').val(),
+				barcolor: $('#barcolor').val(),
+				activebarcolor: $('#activebarcolor').val(),
+			}
+		} )
+	.fail(function( data ) {
+		console.log( "savesettings Fail", data );
+		$("#settings_hint").attr("style", "color:red").html("<TMPL_VAR COMMON.HINT_SAVE_ERROR>: "+data.statusText);
+	})
+	.done(function( data ) {
+		console.log( "savesettings Success: ", data );
+		$("#settings_hint").attr("style", "color:green").html("<TMPL_VAR COMMON.HINT_SAVE_OK>");
+		getconfig();
+	})
+	.always(function( data ) {
+		console.log( "savesettings Finished" );
+	});
+}
+
+// Get Config
+function getconfig() {
+	// Get Config
+	
+	if ( formsettings ) {
+		console.log( "Get Config for Settings form" );
+		var form = 'plugin'; // This will be changed to plugin.json later on in CGI
+	}
+	if ( formlog ) {
+		console.log( "Get Config for form not needed" );
+		return;
+	}
+
+	// Ajax request
+	$.ajax({ 
+		type: 'POST',
+		data: { ajax: 'getconfig', config: form }
+	})
+	.fail(function( data ) {
+		console.log( "getconfig Fail", data );
+	})
+	.done(function( data ) {
+		console.log( "getconfig Success", data );
+		if ( formsettings ) {
+			console.log( "Parse Item for Settings form" );
+			// Fill the form with json data retrieved from the ajax getconfig call
+			if ( data.error || jQuery.isEmptyObject(data)) {
+				console.log("plugin.json is empty, does not exist or is invalid.");
+			}
+			if(data.api_key) {
+				$("#apikey").val(data.api_key);
+			} else {
+				$("#apikey").val('');
+			}
+			if(data.topic) {
+				$("#topic").val(data.topic);
+			} else {
+				$("#topic").val('tibber_display');
+			}
+			if(data.plot_width) {
+				$("#width").val(data.plot_width).slider("refresh");
+			} else {
+				$("#width").val('1000').slider("refresh");
+			}
+			if(data.plot_height) {
+				$("#height").val(data.plot_height).slider("refresh");
+			} else {
+				$("#height").val('1000').slider("refresh");
+			}
+			if(data.text_color) {
+				$("#textcolor").val(data.text_color);
+			} else {
+				$("#textcolor").val('#FFFFFF');
+			}
+			if(data.bar_color) {
+				$("#barcolor").val(data.bar_color);
+			} else {
+				$("#barcolor").val('#6DAC20');
+			}
+			if(data.bar_active_color) {
+				$("#activebarcolor").val(data.bar_active_color);
+			} else {
+				$("#activebarcolor").val('#36550F');
+			}
+
+			$(".SETTINGS").removeClass("ui-state-disabled");
+		};
+	})
+	.always(function( data ) {
+		console.log( "getconfig Finished" );
+	})
+}
+</script>

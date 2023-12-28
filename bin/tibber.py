@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 import sys
@@ -53,6 +53,7 @@ elif args['do'] == 'tomorrow':
 pic = (pconfig["path"] + '/tibber_graph_' +  args['do'] + '.png')
 
 # Set Request Data
+print ("Getting data from Tibber API...")
 url = "https://api.tibber.com/v1-beta/gql"
 headers = {
         "Authorization": 'Bearer ' + pconfig["api_key"],
@@ -93,6 +94,9 @@ query = """
 data = {"query": query}
 response = requests.post(url, json=data, headers=headers)
 response_data = response.json()
+if not "data" in response_data:
+    print("Could not get data from Tibber API. Correct API Key used?")
+    sys.exit()
 
 # Setup Datapoints
 homes = response_data['data']['viewer']['homes']
@@ -145,39 +149,41 @@ colors = []
 for i in shortened_dates_1:
   if i == hour_now:
     if time_windows == 'tomorrow':
-        colors.append('#6DAC20')
+        colors.append(pconfig['bar_color'])
     else:
-        colors.append('#36550F')
+        colors.append(pconfig['bar_active_color'])
   else:
-    colors.append('#6DAC20')
+    colors.append(pconfig['bar_color'])
 
 # Plot Graph
+print ("Creating Plot images...")
 bar_container = plot.bar(shortened_dates_0, y, color=colors )
 # Plot Lables
-plot.bar_label(bar_container, fmt='{:,.4f} €', label_type='center', fontsize=14, color='white', rotation=90)
+plot.bar_label(bar_container, fmt='{:,.4f} €', label_type='center', fontsize=14, color=pconfig['text_color'], rotation=90)
 xlabels = plot.get_xaxis().get_ticklabels()
 for label in xlabels:
     label.set_rotation(90)
 plt.xticks(fontsize=14)
 plt.yticks(fontsize=14)
 # Plot Text
-plt.text(-1.5, highest_y, '{}'.format('Tibber\n'), fontsize=20, fontweight='bold', ha='left', color='white')
+plt.text(-1.5, highest_y, '{}'.format('Tibber\n'), fontsize=20, fontweight='bold', ha='left', color=pconfig['text_color'])
 if time_windows == 'today':
-    plt.text(24.5, highest_y, 'akt. Preis: {:.4f} €\nØ Preis: {:.4f} €\n'.format(act_price, average_price), fontsize=14, ha='right', fontweight='bold', color='white')
+    plt.text(24.5, highest_y, 'akt. Preis: {:.4f} €\nØ Preis: {:.4f} €\n'.format(act_price, average_price), fontsize=14, ha='right', fontweight='bold', color=pconfig['text_color'])
 else:
-    plt.text(24.5, highest_y, '\nØ Preis: {:.4f} €\n'.format( average_price), fontsize=14, ha='right', fontweight='bold', color='white')
+    plt.text(24.5, highest_y, '\nØ Preis: {:.4f} €\n'.format( average_price), fontsize=14, ha='right', fontweight='bold', color=pconfig['text_color'])
 if time_windows == 'today':
-    plt.text(6, highest_y, 'für heute:\n{}\n'.format(current_date), fontsize=14, ha='left', fontweight='bold', color='white')
+    plt.text(6, highest_y, 'für heute:\n{}\n'.format(current_date), fontsize=14, ha='left', fontweight='bold', color=pconfig['text_color'])
 else:
-    plt.text(6, highest_y, 'für morgen:\n{}\n'.format(current_date), fontsize=14, ha='left', fontweight='bold', color='white')
+    plt.text(6, highest_y, 'für morgen:\n{}\n'.format(current_date), fontsize=14, ha='left', fontweight='bold', color=pconfig['text_color'])
 # Setup Size/DPI
-figure.set_size_inches(int(pconfig["width"])/100, int(pconfig["height"])/100)
+figure.set_size_inches(int(pconfig["plot_width"])/100, int(pconfig["plot_height"])/100)
 figure.set_dpi(100)
 # Save Picuture
 picname = (pic)
 figure.savefig(picname, transparent=True)
 
 # Save Data to Json
+print ("Saving JSON data...")
 json_object_nice = json.dumps(response_data, indent=4)
 json_object = json.dumps(response_data)
 with open(pconfig['path'] + "/tibber_data.json", "w") as outfile:
@@ -188,6 +194,7 @@ if mqttconfig['server'] == "" or mqttconfig['port'] == "":
     print("Cannot find mqtt configuration. Do not publish data to MQTT broker.")
     sys.exit()
 
+print ("Publishing data to MQTT broker...")
 client = mqtt.Client()
 client.connected_flag=False
 client.on_connect = on_connect

@@ -47,16 +47,12 @@ my $template;
 my %L;
 
 # Globals 
-my $CFGFILE = $lbpconfigdir . "/config.json";
-my %pids;
+my $CFGFILE = $lbpconfigdir . "/plugin.json";
 my %versions;
 
 ##########################################################################
 # AJAX
 ##########################################################################
-
-# Prevent reading configs from others
-system("chmod 0600 $lbpconfigdir/*.json");
 
 if( $q->{ajax} ) {
 	
@@ -78,59 +74,13 @@ if( $q->{ajax} ) {
 	my %response;
 	ajax_header();
 
-	# CheckSecPin (WebUI SecPin Question)
-	if( $q->{ajax} eq "checksecpin" ) {
-		LOGINF "P$$ checksecpin: CheckSecurePIN was called.";
-		$response{error} = &checksecpin();
-		print JSON->new->canonical(1)->encode(\%response);
-		exit();
-	}
-	
-	# GetPIDs
-	if( $q->{ajax} eq "getpids" ) {
-		LOGINF "P$$ getpids: getpids was called.";
-		pids();
-		$response{pids} = \%pids;
+	# Save Settings
+	if( $q->{ajax} eq "savesettings" ) {
+		LOGINF "P$$ savesettings: Savesettings was called.";
+		$response{error} = &savesettings();
 		print JSON->new->canonical(1)->encode(\%response);
 	}
 
-	# All other requests need to send the SecPIN
-	if($ENV{REQUEST_METHOD} && $q->{ajax} ne "getpids") {
-		LOGINF "P$$ Remote request - checking SecurePIN";
-		my $seccheck = LoxBerry::System::check_securepin($q->{secpin});
-		if($seccheck) {
-			LOGERR "P$$ SecurePIN error: $seccheck";
-			$response{error} = $seccheck;
-			$response{secpinerror} = 1;
-			$response{message} = "SecurePIN invalid";
-			print JSON->new->canonical(1)->encode(\%response);
-			exit(1);
-		} else {
-			LOGINF "P$$ SecurePIN ok";
-		}
-	}
-	
-	# Save MQTT Settings
-	if( $q->{ajax} eq "savemqtt" ) {
-		LOGINF "P$$ savemqtt: savemqtt was called.";
-		$response{error} = &savemqtt();
-		print JSON->new->canonical(1)->encode(\%response);
-	}
-	
-	# Save Landroid Settings
-	if( $q->{ajax} eq "savelandroid" ) {
-		LOGINF "P$$ savelandroid: savelandroid was called.";
-		$response{error} = &savelandroid();
-		print JSON->new->canonical(1)->encode(\%response);
-	}
-
-	# Upgrade Lib
-	if( $q->{ajax} eq "upgradelib" ) {
-		LOGINF "P$$ upgradelib: upgradelib was called.";
-		$response{error} = &upgradelib();
-		print JSON->new->canonical(1)->encode(\%response);
-	}
-	
 	# Get config
 	if( $q->{ajax} eq "getconfig" ) {
 		LOGINF "P$$ getconfig: Getconfig was called.";
@@ -139,11 +89,6 @@ if( $q->{ajax} ) {
 			LOGINF "P$$ getconfig: No config given.";
 			$response{error} = "1";
 			$response{message} = "No config given";
-		}
-		elsif ( &checksecpin() ) {
-			LOGINF "P$$ getconfig: Wrong SecurePIN.";
-			$response{error} = "1";
-			$response{message} = "Wrong SecurePIN";
 		}
 		elsif ( !-e $lbpconfigdir . "/" . $q->{config} . ".json" ) {
 			LOGINF "P$$ getconfig: Config file does not exist.";
@@ -158,26 +103,6 @@ if( $q->{ajax} ) {
 			print $content;
 		}
 		print JSON->new->canonical(1)->encode(\%response) if !$content;
-	}
-
-	# GetVersions
-	if( $q->{ajax} eq "getversions" ) {
-		LOGINF "P$$ getversions: getversions was called.";
-		versions();
-		$response{versions} = \%versions;
-		print JSON->new->canonical(1)->encode(\%response);
-	}
-
-	# Restart services
-	if( $q->{ajax} eq "restartbridge" ) {
-		$response{error} = &restartbridge();
-		print JSON->new->canonical(1)->encode(\%response);
-	}
-
-	# Stop services
-	if( $q->{ajax} eq "stopbridge" ) {
-		$response{error} = &stopbridge();
-		print JSON->new->canonical(1)->encode(\%response);
 	}
 
 	exit;
@@ -199,7 +124,7 @@ if( $q->{ajax} ) {
 	#	addtime => 1
 	#);
 
-	LOGSTART "Landroid WebIf";
+	LOGSTART "Tibber-Display WebIf";
 	
 	# Init Template
 	$template = HTML::Template->new(
@@ -211,11 +136,10 @@ if( $q->{ajax} ) {
 	%L = LoxBerry::System::readlanguage($template, "language.ini");
 	
 	# Default is LabCom form
-	$q->{form} = "landroid" if !$q->{form};
+	$q->{form} = "settings" if !$q->{form};
 
-	if ($q->{form} eq "landroid") { &form_landroid() }
-	elsif ($q->{form} eq "mqtt") { &form_mqtt() }
-	elsif ($q->{form} eq "upgrade") { &form_upgrade() }
+	if ($q->{form} eq "settings") { &form_settings() }
+	elsif ($q->{form} eq "loxconfig") { &form_loxconfig() }
 	elsif ($q->{form} eq "log") { &form_log() }
 
 	# Print the form
@@ -226,34 +150,23 @@ exit;
 
 
 ##########################################################################
-# Form: LANDROID
+# Form: Settings
 ##########################################################################
 
-sub form_landroid
+sub form_settings
 {
-	$template->param("FORM_LANDROID", 1);
+	$template->param("FORM_SETTINGS", 1);
 	return();
 }
 
 
 ##########################################################################
-# Form: MQTT
+# Form: LoxConfig
 ##########################################################################
 
-sub form_mqtt
+sub form_loxconfig
 {
-	$template->param("FORM_MQTT", 1);
-	return();
-}
-
-
-##########################################################################
-# Form: UPGRADE
-##########################################################################
-
-sub form_upgrade
-{
-	$template->param("FORM_UPGRADE", 1);
+	$template->param("FORM_LOXCONFIG", 1);
 	return();
 }
 
@@ -278,24 +191,20 @@ sub form_print
 	# Navbar
 	our %navbar;
 
-	$navbar{10}{Name} = "$L{'COMMON.LABEL_LANDROID'}";
-	$navbar{10}{URL} = 'index.cgi?form=landroid';
-	$navbar{10}{active} = 1 if $q->{form} eq "landroid";
+	$navbar{10}{Name} = "$L{'COMMON.LABEL_SETTINGS'}";
+	$navbar{10}{URL} = 'index.cgi?form=settings';
+	$navbar{10}{active} = 1 if $q->{form} eq "settings";
 	
-	$navbar{30}{Name} = "$L{'COMMON.LABEL_MQTT'}";
-	$navbar{30}{URL} = 'index.cgi?form=mqtt';
-	$navbar{30}{active} = 1 if $q->{form} eq "mqtt";
-
-	$navbar{40}{Name} = "$L{'COMMON.LABEL_UPGRADE'}";
-	$navbar{40}{URL} = 'index.cgi?form=upgrade';
-	$navbar{40}{active} = 1 if $q->{form} eq "upgrade";
+	$navbar{30}{Name} = "$L{'COMMON.LABEL_LOXCONFIG'}";
+	$navbar{30}{URL} = 'index.cgi?form=loxconfig';
+	$navbar{30}{active} = 1 if $q->{form} eq "loxconfig";
 
 	$navbar{99}{Name} = "$L{'COMMON.LABEL_LOG'}";
 	$navbar{99}{URL} = 'index.cgi?form=log';
 	$navbar{99}{active} = 1 if $q->{form} eq "log";
 	
 	# Template
-	LoxBerry::Web::lbheader($L{'COMMON.LABEL_PLUGINTITLE'} . " V$version", "https://wiki.loxberry.de/plugins/worx_landroid-ng/start", "");
+	LoxBerry::Web::lbheader($L{'COMMON.LABEL_PLUGINTITLE'} . " V$version", "https://wiki.loxberry.de/plugins/tibber-display/start", "");
 	print $template->output();
 	LoxBerry::Web::lbfooter();
 	
@@ -317,122 +226,20 @@ sub ajax_header
 	);	
 }	
 
-sub checksecpin
-{
-	my $error;
-	if ( LoxBerry::System::check_securepin($q->{secpin}) ) {
-		LOGINF "P$$ checksecpin: The entered securepin is wrong.";
-		$error = 1;
-	} else {
-		LOGINF "P$$ checksecpin: You have entered the correct securepin. Continuing.";
-		$error = 0;
-	}
-	return ($error);
-}
-
-sub savemqtt
+sub savesettings
 {
 	my $errors;
 	my $jsonobj = LoxBerry::JSON->new();
 	my $cfg = $jsonobj->open(filename => $CFGFILE);
-	my $i = 0;
-	$q->{'topic'} = "landroid" if ( $q->{topic} eq "" ) ;
-	$cfg->{'mqtt'}->{'topic'} = $q->{topic};
-	foreach ( @{$cfg->{'mower'}} ) {
-		$cfg->{'mower'}[$i]->{'topic'} = $q->{topic} . "/" . $cfg->{'mower'}[$i]->{'sn'};
-		$i++;
-	}
-	$jsonobj->write();
-	
-	# Save mqtt_subscriptions.cfg for MQTT Gateway
-	my $subscr_file = $lbpconfigdir."/mqtt_subscriptions.cfg";
-	eval {
-		open(my $fh, '>', $subscr_file);
-		print $fh $q->{topic} . "/#\n";
-		close $fh;
-	};
-	if ($@) {
-		LOGERR "savemqtt: Could not write $subscr_file: $@";
-	}
-
-	return ($errors);
-}
-
-sub savelandroid
-{
-	my $errors;
-	my $jsonobj = LoxBerry::JSON->new();
-	my $cfg = $jsonobj->open(filename => $CFGFILE);
-	$cfg->{cloud}->{email} = $q->{login};
-	$cfg->{cloud}->{pwd} = $q->{password};
-	$cfg->{cloud}->{type} = $q->{type};
-	my  @serials = split /\n/, $q->{serials};
-	my $topic = $cfg->{'mqtt'}->{'topic'};
-	$topic = "landroid" if (!$topic);
-	my @mowers;
-	foreach ( @serials ) {
-		next if $_ eq "";
-		my %mower = (
-			sn => "$_",
-			topic => "$topic" . "/" . $_,
-		);
-		push @mowers, \%mower;
-	}
-	$cfg->{mower} = \@mowers;
-	$cfg->{'mqtt'}->{'topic'} = $topic;
+	$cfg->{'api_key'} = $q->{'apikey'};
+	$cfg->{'plot_width'} = $q->{'width'};
+	$cfg->{'plot_height'} = $q->{'height'};
+	$cfg->{'text_color'} = $q->{'textcolor'};
+	$cfg->{'bar_color'} = $q->{'barcolor'};
+	$cfg->{'bar_active_color'} = $q->{'activebarcolor'};
+	$cfg->{'topic'} = $q->{'topic'};
 	$jsonobj->write();
 	return ($errors);
-}
-
-sub pids
-{
-	$pids{'bridge'} = trim(`pgrep -f mqtt-landroid-bridge/bridge.js`) ;
-	return();
-}
-
-sub versions
-{
-	$versions{'current'} = execute("$lbpbindir/upgrade_bridge.sh current");
-	$versions{'available'} = execute("$lbpbindir/upgrade_bridge.sh available");
-	return();
-}
-
-sub upgradelib
-{
-	my ($exitcode, $output) = execute("$lbpbindir/upgrade_bridge.sh");
-	return($exitcode);
-}
-
-sub restartbridge
-{
-
-	# Restart services from WebUI
-	my $errors;
-	eval {
-		system("$lbpbindir/watchdog.pl --action=restart >/dev/null 2>&1");
-	};
-	if ($@) {
-		$errors++;
-	}
-
-	return ($errors);
-
-}
-
-sub stopbridge
-{
-
-	# Restart services from WebUI
-	my $errors;
-	eval {
-		system("$lbpbindir/watchdog.pl --action=stop >/dev/null 2>&1");
-	};
-	if ($@) {
-		$errors++;
-	}
-
-	return ($errors);
-
 }
 
 END {
