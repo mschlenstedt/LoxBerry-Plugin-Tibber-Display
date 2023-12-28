@@ -34,12 +34,10 @@ PCONFIG=$LBPCONFIG/$PDIR
 PSBIN=$LBPSBIN/$PDIR
 PBIN=$LBPBIN/$PDIR
 
-pillow tk matplotlib requests numpy waveshare-epaper
-
 echo "<INFO> Installing Pillow via pip..."
-yes | python3 -m pip pillow
+yes | python3 -m pip install pillow
 
-INSTALLED_ST=$(python3 -m pip list --format=columns | grep "pillow" | grep -v grep | wc -l)
+INSTALLED_ST=$(python3 -m pip list --format=columns | grep "Pillow" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
 	echo "<OK> Pillow installed successfully."
 else
@@ -49,7 +47,7 @@ fi
 
 
 echo "<INFO> Installing Matplotlib via pip..."
-yes | python3 -m pip matplotlib
+yes | python3 -m pip install matplotlib
 
 INSTALLED_ST=$(python3 -m pip list --format=columns | grep "matplotlib" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
@@ -60,7 +58,7 @@ else
 fi 
 
 echo "<INFO> Installing Requests via pip..."
-yes | python3 -m pip requests
+yes | python3 -m pip install requests
 
 INSTALLED_ST=$(python3 -m pip list --format=columns | grep "requests" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
@@ -71,7 +69,7 @@ else
 fi 
 
 echo "<INFO> Installing Numpy via pip..."
-yes | python3 -m pip numpy
+yes | python3 -m pip install numpy
 
 INSTALLED_ST=$(python3 -m pip list --format=columns | grep "numpy" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
@@ -80,6 +78,21 @@ else
 	echo "<FAIL> Numpy could not be installed."
 	exit 2;
 fi 
+
+echo "<INFO> Installing Paho-mqtt via pip..."
+yes | python3 -m pip install paho-mqtt
+
+INSTALLED_ST=$(python3 -m pip list --format=columns | grep "paho-mqtt" | grep -v grep | wc -l)
+if [ ${INSTALLED_ST} -ne "0" ]; then
+	echo "<OK> Paho-mqtt installed successfully."
+else
+	echo "<FAIL> Paho-mqtt could not be installed."
+	exit 2;
+fi 
+
+echo "<INFO> Creating needed German locale..."
+localedef -i de_DE -f UTF-8 de_DE.UTF-8
+locale -a
 
 # Exit with Status 0
 exit 0
