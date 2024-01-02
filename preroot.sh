@@ -37,7 +37,7 @@ PBIN=$LBPBIN/$PDIR
 echo "<INFO> Installing Pillow via pip..."
 yes | python3 -m pip install pillow
 
-INSTALLED_ST=$(python3 -m pip list --format=columns | grep "Pillow" | grep -v grep | wc -l)
+INSTALLED_ST=$(python3 -m pip list --format=columns | grep -i "pillow" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
 	echo "<OK> Pillow installed successfully."
 else
@@ -49,7 +49,7 @@ fi
 echo "<INFO> Installing Matplotlib via pip..."
 yes | python3 -m pip install matplotlib
 
-INSTALLED_ST=$(python3 -m pip list --format=columns | grep "matplotlib" | grep -v grep | wc -l)
+INSTALLED_ST=$(python3 -m pip list --format=columns | grep -i "matplotlib" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
 	echo "<OK> Matplotlib installed successfully."
 else
@@ -60,7 +60,7 @@ fi
 echo "<INFO> Installing Requests via pip..."
 yes | python3 -m pip install requests
 
-INSTALLED_ST=$(python3 -m pip list --format=columns | grep "requests" | grep -v grep | wc -l)
+INSTALLED_ST=$(python3 -m pip list --format=columns | grep -i "requests" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
 	echo "<OK> Requests installed successfully."
 else
@@ -71,7 +71,7 @@ fi
 echo "<INFO> Installing Numpy via pip..."
 yes | python3 -m pip install numpy
 
-INSTALLED_ST=$(python3 -m pip list --format=columns | grep "numpy" | grep -v grep | wc -l)
+INSTALLED_ST=$(python3 -m pip list --format=columns | grep -i "numpy" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
 	echo "<OK> Numpy installed successfully."
 else
@@ -82,7 +82,7 @@ fi
 echo "<INFO> Installing Paho-mqtt via pip..."
 yes | python3 -m pip install paho-mqtt
 
-INSTALLED_ST=$(python3 -m pip list --format=columns | grep "paho-mqtt" | grep -v grep | wc -l)
+INSTALLED_ST=$(python3 -m pip list --format=columns | grep -i "paho-mqtt" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
 	echo "<OK> Paho-mqtt installed successfully."
 else
