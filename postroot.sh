@@ -34,6 +34,17 @@ PCONFIG=$LBPCONFIG/$PDIR
 PSBIN=$LBPSBIN/$PDIR
 PBIN=$LBPBIN/$PDIR
 
+echo "<INFO> Installing Matplotlib via pip..."
+yes | python3 -m pip install matplotlib
+
+INSTALLED_ST=$(python3 -m pip list --format=columns | grep -i "matplotlib" | grep -v grep | wc -l)
+if [ ${INSTALLED_ST} -ne "0" ]; then
+	echo "<OK> Matplotlib installed successfully."
+else
+	echo "<FAIL> Matplotlib could not be installed."
+	exit 2;
+fi
+
 echo "<INFO> Creating needed German locale..."
 localedef -i de_DE -f UTF-8 de_DE.UTF-8
 locale -a
