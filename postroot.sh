@@ -35,7 +35,14 @@ PSBIN=$LBPSBIN/$PDIR
 PBIN=$LBPBIN/$PDIR
 
 echo "<INFO> Installing Matplotlib via pip..."
-yes | python3 -m pip install matplotlib
+if [ ! -e /tmp_pip ]; then
+	mkdir -p /tmp_pip
+ 	REMOVE=1
+fi
+yes | TMPDIR=/tmp_pip python3 -m pip install matplotlib
+if [ $REMOVE -eq 1 ]; then
+	rm -r /tmp_pip
+fi
 
 INSTALLED_ST=$(python3 -m pip list --format=columns | grep -i "matplotlib" | grep -v grep | wc -l)
 if [ ${INSTALLED_ST} -ne "0" ]; then
