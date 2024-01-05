@@ -34,62 +34,6 @@ PCONFIG=$LBPCONFIG/$PDIR
 PSBIN=$LBPSBIN/$PDIR
 PBIN=$LBPBIN/$PDIR
 
-echo "<INFO> Installing Pillow via pip..."
-yes | python3 -m pip install pillow
-
-INSTALLED_ST=$(python3 -m pip list --format=columns | grep -i "pillow" | grep -v grep | wc -l)
-if [ ${INSTALLED_ST} -ne "0" ]; then
-	echo "<OK> Pillow installed successfully."
-else
-	echo "<FAIL> Pillow could not be installed."
-	exit 2;
-fi 
-
-
-echo "<INFO> Installing Matplotlib via pip..."
-yes | python3 -m pip install matplotlib
-
-INSTALLED_ST=$(python3 -m pip list --format=columns | grep -i "matplotlib" | grep -v grep | wc -l)
-if [ ${INSTALLED_ST} -ne "0" ]; then
-	echo "<OK> Matplotlib installed successfully."
-else
-	echo "<FAIL> Matplotlib could not be installed."
-	exit 2;
-fi 
-
-echo "<INFO> Installing Requests via pip..."
-yes | python3 -m pip install requests
-
-INSTALLED_ST=$(python3 -m pip list --format=columns | grep -i "requests" | grep -v grep | wc -l)
-if [ ${INSTALLED_ST} -ne "0" ]; then
-	echo "<OK> Requests installed successfully."
-else
-	echo "<FAIL> Requests could not be installed."
-	exit 2;
-fi 
-
-echo "<INFO> Installing Numpy via pip..."
-yes | python3 -m pip install numpy
-
-INSTALLED_ST=$(python3 -m pip list --format=columns | grep -i "numpy" | grep -v grep | wc -l)
-if [ ${INSTALLED_ST} -ne "0" ]; then
-	echo "<OK> Numpy installed successfully."
-else
-	echo "<FAIL> Numpy could not be installed."
-	exit 2;
-fi 
-
-echo "<INFO> Installing Paho-mqtt via pip..."
-yes | python3 -m pip install paho-mqtt
-
-INSTALLED_ST=$(python3 -m pip list --format=columns | grep -i "paho-mqtt" | grep -v grep | wc -l)
-if [ ${INSTALLED_ST} -ne "0" ]; then
-	echo "<OK> Paho-mqtt installed successfully."
-else
-	echo "<FAIL> Paho-mqtt could not be installed."
-	exit 2;
-fi 
-
 echo "<INFO> Creating needed German locale..."
 localedef -i de_DE -f UTF-8 de_DE.UTF-8
 locale -a
